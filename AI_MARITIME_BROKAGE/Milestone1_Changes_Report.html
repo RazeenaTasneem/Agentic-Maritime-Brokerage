@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milestone 1 — Changes Report | Maritime Brokerage AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@page { margin: 0.6in 0.7in; size: A4; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  color: #1e293b;
+  line-height: 1.7;
+  font-size: 10.5pt;
+}
+
+/* Cover Page */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0a0e1a 0%, #0f172a 50%, #1e1b4b 100%);
+  color: #f1f5f9;
+  text-align: center;
+  padding: 60px 40px;
+  page-break-after: always;
+}
+.cover-icon { font-size: 4rem; margin-bottom: 24px; }
+.cover h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+}
+.cover h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #94a3b8;
+  margin-bottom: 36px;
+}
+.cover-badge {
+  display: inline-block;
+  padding: 8px 28px;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.25);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: #06b6d4;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 48px;
+}
+.cover-meta {
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+}
+.cover-meta-item {
+  text-align: center;
+}
+.cover-meta-item strong {
+  display: block;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+.cover-meta-item span {
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.cover-footer {
+  margin-top: 60px;
+  font-size: 0.8rem;
+  color: #475569;
+}
+
+/* Content Pages */
+.page {
+  padding: 0;
+  page-break-after: always;
+}
+.page:last-child { page-break-after: auto; }
+
+/* Headings */
+h2.page-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 6px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid;
+  border-image: linear-gradient(90deg, #06b6d4, #3b82f6) 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.page-subtitle {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-bottom: 24px;
+}
+
+h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #334155;
+  margin: 20px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+h4 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #475569;
+  margin: 16px 0 8px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 20px;
+  font-size: 0.85rem;
+}
+table th {
+  background: #f1f5f9;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e2e8f0;
+}
+table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+}
+table tr:hover td { background: #f8fafc; }
+
+/* Code blocks */
+.code {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 16px 20px;
+  border-radius: 10px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.78rem;
+  line-height: 1.8;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 10px 0 18px;
+  border: 1px solid #1e293b;
+}
+.code .kw { color: #c084fc; }
+.code .str { color: #5eead4; }
+.code .cmt { color: #64748b; font-style: italic; }
+.code .num { color: #fbbf24; }
+.code .fn { color: #38bdf8; }
+.code .dec { color: #f472b6; }
+
+/* File label */
+.file-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.78rem;
+  color: #334155;
+  font-weight: 500;
+  margin: 8px 0 4px;
+}
+.file-new {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #065f46;
+}
+.file-modified {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1e40af;
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 100px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.badge-new { background: #ecfdf5; color: #059669; }
+.badge-mod { background: #eff6ff; color: #2563eb; }
+.badge-data { background: #fef3c7; color: #d97706; }
+
+/* Info boxes */
+.info-box {
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin: 12px 0 18px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.info-blue {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  color: #1e40af;
+}
+.info-green {
+  background: #ecfdf5;
+  border-left: 4px solid #10b981;
+  color: #065f46;
+}
+.info-gold {
+  background: #fffbeb;
+  border-left: 4px solid #f59e0b;
+  color: #92400e;
+}
+
+/* Architecture diagram */
+.arch-diagram {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: #334155;
+  margin: 12px 0 18px;
+  white-space: pre;
+}
+
+/* Check list */
+.checklist {
+  list-style: none;
+  margin: 10px 0 18px;
+}
+.checklist li {
+  padding: 6px 0;
+  font-size: 0.88rem;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.check { color: #10b981; font-weight: 700; }
+
+/* Two column */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Separator */
+hr {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 20px 0;
+}
+
+/* Print */
+@media print {
+  .cover { min-height: 100vh; }
+  .page { page-break-after: always; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== COVER PAGE ==================== -->
+<div class="cover">
+  <div class="cover-icon">⚓</div>
+  <h1>Agentic Maritime Brokerage</h1>
+  <h2>Milestone 1 — Implementation Changes Report</h2>
+  <div class="cover-badge">Route Intelligence & Quotation Foundation</div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <strong>8</strong>
+      <span>New Files</span>
+    </div>
+    <div class="cover-meta-item">
+      <strong>5</strong>
+      <span>Modified Files</span>
+    </div>
+    <div class="cover-meta-item">
+      <strong>3</strong>
+      <span>API Endpoints</span>
+    </div>
+    <div class="cover-meta-item">
+      <strong>3</strong>
+      <span>AI Agents</span>
+    </div>
+  </div>
+  <div class="cover-footer">
+    September 2026 &nbsp;·&nbsp; Infosys Training Project &nbsp;·&nbsp; AI-Powered Maritime Platform
+  </div>
+</div>
+
+<!-- ==================== PAGE 1: OVERVIEW ==================== -->
+<div class="page">
+  <h2 class="page-title">📋 Overview of Changes</h2>
+  <p class="page-subtitle">Summary of all work completed to finalize Milestone 1</p>
+
+  <div class="info-blue">
+    <strong>Goal:</strong> Complete all missing Milestone 1 components — Pricing Agent, Quotation Service, Quotation API endpoint, CORS middleware, score breakdown in Route Agent, frontend quotation dashboard, and a presentation for new team members.
+  </div>
+
+  <h3>📁 Files Created</h3>
+  <table>
+    <thead>
+      <tr><th>File</th><th>Location</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="badge badge-data">DATA</span> pricing.csv</td><td>backend/app/data/</td><td>Pricing dataset — surcharges, demand factors, margins</td></tr>
+      <tr><td><span class="badge badge-new">NEW</span> pricing_agent.py</td><td>backend/app/agents/</td><td>Pricing Agent — calculates operating costs</td></tr>
+      <tr><td><span class="badge badge-new">NEW</span> __init__.py</td><td>backend/app/services/</td><td>Python package initializer for services</td></tr>
+      <tr><td><span class="badge badge-new">NEW</span> quotation_service.py</td><td>backend/app/services/</td><td>Quotation Service — orchestrates agents</td></tr>
+      <tr><td><span class="badge badge-new">NEW</span> Milestone1_Presentation.html</td><td>project root</td><td>10-slide HTML presentation</td></tr>
+    </tbody>
+  </table>
+
+  <h3>✏️ Files Modified</h3>
+  <table>
+    <thead>
+      <tr><th>File</th><th>Location</th><th>What Changed</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="badge badge-mod">MOD</span> route_agent.py</td><td>backend/app/agents/</td><td>Added score_breakdown, rank, cost_per_container</td></tr>
+      <tr><td><span class="badge badge-mod">MOD</span> models.py</td><td>backend/app/</td><td>Added QuotationRequest Pydantic model</td></tr>
+      <tr><td><span class="badge badge-mod">MOD</span> main.py</td><td>backend/</td><td>Added CORS + quotation endpoint</td></tr>
+      <tr><td><span class="badge badge-mod">MOD</span> App.jsx</td><td>frontend/src/</td><td>Added quotation dashboard, tabs, pricing breakdown</td></tr>
+      <tr><td><span class="badge badge-mod">MOD</span> App.css</td><td>frontend/src/</td><td>+540 lines for quotation UI styles</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🏗️ Final Project Structure</h3>
+  <div class="arch-diagram">Agentic-Maritime-Brokerage/
+├── frontend/                    ← React + Vite
+│   └── src/
+│       ├── App.jsx              ← Dashboard + Quotation UI
+│       ├── App.css              ← Premium dark theme
+│       ├── Login.jsx            ← Auth system
+│       ├── ChartCanvas.jsx      ← Route comparison chart
+│       └── data/ports.js        ← Port & cargo data
+│
+├── backend/                     ← Python + FastAPI
+│   ├── main.py                  ← 3 API endpoints + CORS
+│   └── app/
+│       ├── models.py            ← RouteRequest + QuotationRequest
+│       ├── agents/
+│       │   ├── route_agent.py   ← Route Intelligence Agent
+│       │   └── pricing_agent.py ← Pricing Intelligence Agent
+│       ├── services/
+│       │   └── quotation_service.py ← Quotation Orchestrator
+│       └── data/
+│           ├── routes.csv       ← 10 shipping routes
+│           └── pricing.csv      ← 10 pricing records
+│
+├── start.bat                    ← One-click launcher
+└── Milestone1_Presentation.html ← 10-slide presentation</div>
+</div>
+
+<!-- ==================== PAGE 2: BACKEND - PRICING DATASET ==================== -->
+<div class="page">
+  <h2 class="page-title">💾 New: Pricing Dataset</h2>
+  <p class="page-subtitle">backend/app/data/pricing.csv — Surcharges, demand factors, and target margins</p>
+
+  <div class="info-gold">
+    <strong>Why this file?</strong> The Route Agent only knows about routes. The Pricing Agent needs additional cost data (fuel surcharges, port charges, risk, demand) to calculate the true freight cost.
+  </div>
+
+  <div class="file-label file-new">📄 NEW — backend/app/data/pricing.csv</div>
+  <div class="code">pricing_id,route_id,fuel_surcharge_usd,port_charge_usd,demand_factor,risk_surcharge_usd,target_margin_percent
+P001,R001,100,75,1.00,50,15
+P002,R002,110,80,0.95,60,15
+P003,R003,105,70,1.05,55,15
+P004,R004,100,80,1.00,50,15
+P005,R005,95,70,1.00,45,15
+P006,R006,105,75,0.95,55,15
+P007,R007,90,65,1.05,45,15
+P008,R008,100,70,0.95,50,15
+P009,R009,85,60,1.10,40,15
+P010,R010,90,65,1.05,45,15</div>
+
+  <h3>📊 Column Definitions</h3>
+  <table>
+    <thead>
+      <tr><th>Column</th><th>Type</th><th>Meaning</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>pricing_id</td><td>String</td><td>Unique pricing record identifier</td></tr>
+      <tr><td>route_id</td><td>String</td><td>Links to routes.csv route_id</td></tr>
+      <tr><td>fuel_surcharge_usd</td><td>Number</td><td>Additional fuel cost per container</td></tr>
+      <tr><td>port_charge_usd</td><td>Number</td><td>Port handling charges per container</td></tr>
+      <tr><td>demand_factor</td><td>Float</td><td>Market demand multiplier (1.0 = normal)</td></tr>
+      <tr><td>risk_surcharge_usd</td><td>Number</td><td>Risk-related additional cost</td></tr>
+      <tr><td>target_margin_percent</td><td>Number</td><td>Desired brokerage profit margin (%)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🧮 Example: R001 Cost Calculation</h3>
+  <div class="arch-diagram">Base Freight (from routes.csv)    $1,850
++ Fuel Surcharge                  +  $100
++ Port Charge                     +   $75
++ Risk Surcharge                  +   $50
+                                 ───────
+Operating Cost                    $2,075
+× Demand Factor                  × 1.00
+                                 ───────
+Demand-Adjusted Cost              $2,075  per container
+
+× 10 containers                  × 10
+                                 ───────
+TOTAL FREIGHT                    $20,750</div>
+</div>
+
+<!-- ==================== PAGE 3: PRICING AGENT ==================== -->
+<div class="page">
+  <h2 class="page-title">🤖 New: Pricing Agent</h2>
+  <p class="page-subtitle">backend/app/agents/pricing_agent.py — Calculates operating cost and demand-adjusted pricing</p>
+
+  <div class="info-green">
+    <strong>Architecture principle:</strong> The Route Agent decides <em>which</em> route. The Pricing Agent decides <em>how much</em> it costs. Each agent has a single responsibility.
+  </div>
+
+  <div class="file-label file-new">📄 NEW — backend/app/agents/pricing_agent.py</div>
+  <div class="code"><span class="kw">import</span> os
+<span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+
+<span class="kw">class</span> <span class="fn">PricingAgent</span>:
+
+    <span class="kw">def</span> <span class="fn">__init__</span>(self):
+        <span class="cmt"># Load pricing.csv from app/data/</span>
+        current_file = os.path.abspath(__file__)
+        project_root = os.path.dirname(os.path.dirname(os.path.dirname(current_file)))
+        self.pricing_path = os.path.join(project_root, <span class="str">"app"</span>, <span class="str">"data"</span>, <span class="str">"pricing.csv"</span>)
+        self.pricing = pd.read_csv(self.pricing_path)
+
+    <span class="kw">def</span> <span class="fn">calculate_pricing</span>(self, route_id, base_freight):
+        <span class="cmt"># Find pricing data for the given route</span>
+        pricing_data = self.pricing[self.pricing[<span class="str">"route_id"</span>] == route_id]
+
+        <span class="kw">if</span> pricing_data.empty:
+            <span class="kw">return</span> {<span class="str">"status"</span>: <span class="str">"not_found"</span>, ...}
+
+        pricing = pricing_data.iloc[<span class="num">0</span>]
+
+        <span class="cmt"># Extract surcharges</span>
+        fuel_surcharge   = <span class="kw">float</span>(pricing[<span class="str">"fuel_surcharge_usd"</span>])
+        port_charge      = <span class="kw">float</span>(pricing[<span class="str">"port_charge_usd"</span>])
+        risk_surcharge   = <span class="kw">float</span>(pricing[<span class="str">"risk_surcharge_usd"</span>])
+        demand_factor    = <span class="kw">float</span>(pricing[<span class="str">"demand_factor"</span>])
+
+        <span class="cmt"># Calculate costs</span>
+        operating_cost       = base_freight + fuel + port + risk
+        demand_adjusted_cost = operating_cost × demand_factor
+
+        <span class="kw">return</span> {
+            <span class="str">"status"</span>: <span class="str">"success"</span>,
+            <span class="str">"operating_cost_usd"</span>:        operating_cost,
+            <span class="str">"demand_adjusted_cost_usd"</span>:  demand_adjusted_cost,
+            <span class="cmt"># ... full breakdown included</span>
+        }</div>
+
+  <h3>🔌 Input / Output</h3>
+  <div class="two-col">
+    <div>
+      <h4>Input Parameters</h4>
+      <table>
+        <tr><td><code>route_id</code></td><td>"R001"</td></tr>
+        <tr><td><code>base_freight</code></td><td>1850.0</td></tr>
+      </table>
+    </div>
+    <div>
+      <h4>Output (for R001)</h4>
+      <table>
+        <tr><td>operating_cost_usd</td><td><strong>$2,075</strong></td></tr>
+        <tr><td>demand_adjusted_cost_usd</td><td><strong>$2,075</strong></td></tr>
+        <tr><td>fuel_surcharge_usd</td><td>$100</td></tr>
+        <tr><td>port_charge_usd</td><td>$75</td></tr>
+        <tr><td>risk_surcharge_usd</td><td>$50</td></tr>
+        <tr><td>demand_factor</td><td>1.00</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 4: QUOTATION SERVICE ==================== -->
+<div class="page">
+  <h2 class="page-title">📄 New: Quotation Service</h2>
+  <p class="page-subtitle">backend/app/services/quotation_service.py — Orchestrates Route Agent + Pricing Agent</p>
+
+  <div class="info-blue">
+    <strong>Key concept:</strong> The Quotation Service doesn't contain any decision logic itself. It <em>coordinates</em> the Route Agent and Pricing Agent, then assembles the final quotation.
+  </div>
+
+  <div class="file-label file-new">📄 NEW — backend/app/services/quotation_service.py</div>
+  <div class="code"><span class="kw">class</span> <span class="fn">QuotationService</span>:
+
+    <span class="kw">def</span> <span class="fn">__init__</span>(self):
+        self.route_agent   = <span class="fn">RouteAgent</span>()
+        self.pricing_agent = <span class="fn">PricingAgent</span>()
+
+    <span class="kw">def</span> <span class="fn">generate_quotation</span>(self, origin, destination, cargo_type, containers):
+
+        <span class="cmt"># Step 1: Ask Route Agent for best route</span>
+        route_result = self.route_agent.analyze_route(origin, destination, ...)
+
+        <span class="cmt"># Step 2: Extract the best route</span>
+        best_route = [r <span class="kw">for</span> r <span class="kw">in</span> route_result[<span class="str">"routes"</span>] <span class="kw">if</span> r[<span class="str">"is_best"</span>]][<span class="num">0</span>]
+
+        <span class="cmt"># Step 3: Get pricing from Pricing Agent</span>
+        pricing = self.pricing_agent.calculate_pricing(best_route[<span class="str">"route_id"</span>], base)
+
+        <span class="cmt"># Step 4: Calculate freight</span>
+        freight_per_container = pricing[<span class="str">"demand_adjusted_cost_usd"</span>]
+        total_freight         = freight_per_container × containers
+
+        <span class="cmt"># Step 5: Build alternative quotations</span>
+        <span class="cmt"># Step 6: Return complete quotation</span>
+        <span class="kw">return</span> { <span class="str">"status"</span>: <span class="str">"success"</span>, ... }</div>
+
+  <h3>🔄 Orchestration Flow</h3>
+  <div class="arch-diagram">         Customer Request
+               │
+               ▼
+      ┌─── Quotation Service ───┐
+      │                         │
+      │   ┌──── Step 1 ────┐    │
+      │   │  Route Agent   │    │
+      │   │  → Best Route  │    │
+      │   └───────┬────────┘    │
+      │           │             │
+      │   ┌──── Step 2 ────┐    │
+      │   │ Pricing Agent  │    │
+      │   │ → Cost Breakdn │    │
+      │   └───────┬────────┘    │
+      │           │             │
+      │   ┌──── Step 3 ────┐    │
+      │   │ Freight Calc   │    │
+      │   │ → Total $      │    │
+      │   └───────┬────────┘    │
+      │           │             │
+      └───────────┼─────────────┘
+                  ▼
+         Complete Quotation</div>
+
+  <h3>📤 Example Response</h3>
+  <div class="code">{
+    <span class="str">"status"</span>: <span class="str">"success"</span>,
+    <span class="str">"recommended_route"</span>: <span class="str">"R001"</span>,
+    <span class="str">"transit_time_days"</span>: <span class="num">24</span>,
+    <span class="str">"freight_per_container_usd"</span>: <span class="num">2075.0</span>,
+    <span class="str">"total_freight_usd"</span>: <span class="num">20750.0</span>,
+    <span class="str">"pricing_breakdown"</span>: { <span class="cmt">/* full cost details */</span> },
+    <span class="str">"alternatives"</span>: [ <span class="cmt">/* other route options */</span> ]
+}</div>
+</div>
+
+<!-- ==================== PAGE 5: ROUTE AGENT ENHANCEMENTS ==================== -->
+<div class="page">
+  <h2 class="page-title">⚡ Modified: Route Agent</h2>
+  <p class="page-subtitle">backend/app/agents/route_agent.py — Added score breakdown, rank, and cost_per_container</p>
+
+  <div class="info-green">
+    <strong>What changed:</strong> The Route Agent now returns a detailed <code>score_breakdown</code> showing individual transit, cost, and transshipment scores for each route, plus rank numbers and cost_per_container.
+  </div>
+
+  <h3>📊 New Fields in Route Response</h3>
+  <table>
+    <thead>
+      <tr><th>New Field</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>score_breakdown.transit_score</code></td><td>Float</td><td>Individual transit time score (0–100)</td></tr>
+      <tr><td><code>score_breakdown.cost_score</code></td><td>Float</td><td>Individual cost score (0–100)</td></tr>
+      <tr><td><code>score_breakdown.transshipment_score</code></td><td>Float</td><td>Individual transshipment score (0–100)</td></tr>
+      <tr><td><code>rank</code></td><td>Integer</td><td>Position in ranking (1 = best)</td></tr>
+      <tr><td><code>cost_per_container</code></td><td>Float</td><td>Base freight per container (USD)</td></tr>
+      <tr><td><code>candidate_routes</code></td><td>Integer</td><td>Total routes evaluated</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🧮 Scoring Weights</h3>
+  <div class="two-col">
+    <div>
+      <table>
+        <thead><tr><th>Factor</th><th>Weight</th><th>Logic</th></tr></thead>
+        <tbody>
+          <tr><td>🕐 Transit Time</td><td><strong>40%</strong></td><td>Faster → Higher score</td></tr>
+          <tr><td>💰 Cost</td><td><strong>30%</strong></td><td>Cheaper → Higher score</td></tr>
+          <tr><td>🔄 Transshipments</td><td><strong>30%</strong></td><td>Fewer → Higher score</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="code"><span class="cmt"># Score formula</span>
+Score = <span class="num">100</span> - (
+  transit_norm × <span class="num">40</span>
+  + cost_norm × <span class="num">30</span>
+  + transship_penalty × <span class="num">30</span>
+)</div>
+    </div>
+  </div>
+
+  <h3>📤 Example: Chennai → Rotterdam (Score Breakdown)</h3>
+  <table>
+    <thead>
+      <tr><th>Route</th><th>Transit</th><th>Cost</th><th>Tranships</th><th>Transit Score</th><th>Cost Score</th><th>Tranship Score</th><th>Overall</th></tr>
+    </thead>
+    <tbody>
+      <tr style="background:#ecfdf5"><td><strong>R001 ⭐</strong></td><td>24d</td><td>$1,850</td><td>1</td><td>100.0</td><td>0.0</td><td>80.0</td><td><strong>65.5</strong></td></tr>
+      <tr><td>R003</td><td>26d</td><td>$1,780</td><td>1</td><td>33.33</td><td>53.85</td><td>80.0</td><td>53.5</td></tr>
+      <tr><td>R002</td><td>27d</td><td>$1,720</td><td>2</td><td>0.0</td><td>100.0</td><td>60.0</td><td>48.0</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ==================== PAGE 6: MAIN.PY & MODELS ==================== -->
+<div class="page">
+  <h2 class="page-title">🔌 Modified: API Endpoints & Models</h2>
+  <p class="page-subtitle">backend/main.py & backend/app/models.py — CORS, new endpoint, new model</p>
+
+  <h3>📝 models.py — Added QuotationRequest</h3>
+  <div class="file-label file-modified">✏️ MOD — backend/app/models.py</div>
+  <div class="code"><span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel
+
+<span class="kw">class</span> <span class="fn">RouteRequest</span>(BaseModel):       <span class="cmt"># Existing</span>
+    origin: str
+    destination: str
+    cargo_type: str
+    containers: int
+
+<span class="kw">class</span> <span class="fn">QuotationRequest</span>(BaseModel):   <span class="cmt"># ← NEW</span>
+    origin: str
+    destination: str
+    cargo_type: str
+    containers: int</div>
+
+  <h3>⚡ main.py — Three Key Changes</h3>
+  <div class="file-label file-modified">✏️ MOD — backend/main.py</div>
+
+  <h4>1. CORS Middleware (allows React → FastAPI communication)</h4>
+  <div class="code">app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[<span class="str">"http://localhost:5173"</span>, <span class="str">"http://127.0.0.1:5173"</span>],
+    allow_credentials=<span class="kw">True</span>,
+    allow_methods=[<span class="str">"*"</span>],
+    allow_headers=[<span class="str">"*"</span>],
+)</div>
+
+  <h4>2. QuotationService Initialization</h4>
+  <div class="code">route_agent       = RouteAgent()
+quotation_service = QuotationService()   <span class="cmt"># ← NEW</span></div>
+
+  <h4>3. New Quotation Endpoint</h4>
+  <div class="code"><span class="dec">@app.post</span>(<span class="str">"/api/quotations/generate"</span>)     <span class="cmt"># ← NEW</span>
+<span class="kw">def</span> <span class="fn">generate_quotation</span>(request: QuotationRequest):
+    result = quotation_service.generate_quotation(
+        origin=request.origin,
+        destination=request.destination,
+        cargo_type=request.cargo_type,
+        containers=request.containers
+    )
+    <span class="kw">return</span> result</div>
+
+  <h3>🔗 All API Endpoints</h3>
+  <table>
+    <thead><tr><th>Method</th><th>Endpoint</th><th>Purpose</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><strong>GET</strong></td><td>/</td><td>API health check</td><td>Existing</td></tr>
+      <tr><td><strong>POST</strong></td><td>/api/routes/analyze</td><td>Route analysis + scoring</td><td>Existing</td></tr>
+      <tr><td><strong>POST</strong></td><td>/api/quotations/generate</td><td>Full freight quotation</td><td><span class="badge badge-new">NEW</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ==================== PAGE 7: FRONTEND CHANGES ==================== -->
+<div class="page">
+  <h2 class="page-title">🖥️ Modified: Frontend Dashboard</h2>
+  <p class="page-subtitle">frontend/src/App.jsx & App.css — Quotation UI, tabs, pricing breakdown</p>
+
+  <h3>🆕 New Frontend Features</h3>
+  <table>
+    <thead><tr><th>Feature</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Generate Quotation Button</strong></td><td>Gold-colored button alongside Analyze Routes — calls <code>POST /api/quotations/generate</code></td></tr>
+      <tr><td><strong>Tab Switcher</strong></td><td>Toggle between "Route Analysis" and "Freight Quotation" views</td></tr>
+      <tr><td><strong>Quotation Summary Card</strong></td><td>Shows recommended route, origin → destination path, total freight, freight per container</td></tr>
+      <tr><td><strong>Pricing Breakdown</strong></td><td>Line-by-line cost display: base freight + surcharges → operating cost → demand adjustment</td></tr>
+      <tr><td><strong>Score Breakdown Bars</strong></td><td>Mini progress bars in each route card showing transit, cost, and transshipment scores</td></tr>
+      <tr><td><strong>Alternative Routes (Quotation)</strong></td><td>Grid of alternative route cards with per-route freight calculations</td></tr>
+      <tr><td><strong>Quotation Metrics</strong></td><td>Transit time, distance, transshipments, route score — displayed as icon cards</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🎨 CSS Additions (~540 new lines)</h3>
+  <table>
+    <thead><tr><th>Component</th><th>Styles Added</th></tr></thead>
+    <tbody>
+      <tr><td>Button Row</td><td>Two-column grid for dual action buttons</td></tr>
+      <tr><td>Quotation Button</td><td>Gold gradient, matching hover effects</td></tr>
+      <tr><td>Tab Switcher</td><td>Glassmorphism pill tabs with active gradient</td></tr>
+      <tr><td>Score Breakdown</td><td>Animated mini progress bars with color coding</td></tr>
+      <tr><td>Quotation Summary</td><td>Gold-accented card with route path and total freight</td></tr>
+      <tr><td>Pricing Breakdown</td><td>Line items with subtotal/total separators</td></tr>
+      <tr><td>Alternative Cards</td><td>Grid layout with hover effects and metric displays</td></tr>
+      <tr><td>Responsive</td><td>Full mobile support for all new components</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🖼️ Dashboard Layout (After Changes)</h3>
+  <div class="arch-diagram">┌──────────────────────────────────────────────────────────────┐
+│  ⚓ Maritime Brokerage AI          [Milestone 1]  [User ▼]  │
+├──────────────────────────────────────────────────────────────┤
+│  Good Morning, Captain 👋                                    │
+│  [500+ Ports] [50+ Lines] [AI Scoring] [99.9% Uptime]       │
+├──────────────────────────────────────────────────────────────┤
+│  🖼️ Hero Banner — Smart Route Intelligence                   │
+├──────────────────────────────────────────────────────────────┤
+│  Shipment Request                                            │
+│  ┌─────────────┐ ┌─────────────┐ ┌──────────┐ ┌──────────┐  │
+│  │Origin       │ │Destination  │ │Cargo Type│ │Containers│  │
+│  └─────────────┘ └─────────────┘ └──────────┘ └──────────┘  │
+│  [ 🔔 Analyze Routes ]  [ 📄 Generate Quotation ]           │ ← NEW
+├──────────────────────────────────────────────────────────────┤
+│  [Route Analysis] [Freight Quotation]  ← Tab Switcher        │ ← NEW
+├──────────────────────────────────────────────────────────────┤
+│  Quotation Tab:                                              │ ← NEW
+│  ┌──────────────────────────────────────────┐                │
+│  │ R001 Recommended    Chennai → Rotterdam  │                │
+│  │ Electronics · 10 containers · Via Std    │ Total: $20,750 │
+│  │ [24 days] [8650 NM] [1 Tranship] [65.5] │                │
+│  ├──────────────────────────────────────────┤                │
+│  │ Pricing: Base $1850 + Fuel $100 + Port   │                │
+│  │ $75 + Risk $50 = $2075 × 1.00 = $2075   │                │
+│  ├──────────────────────────────────────────┤                │
+│  │ Alternatives: [R003 $19,460] [R002 ...]  │                │
+│  └──────────────────────────────────────────┘                │
+└──────────────────────────────────────────────────────────────┘</div>
+</div>
+
+<!-- ==================== PAGE 8: TEST RESULTS & HOW TO RUN ==================== -->
+<div class="page">
+  <h2 class="page-title">✅ Test Results & How to Run</h2>
+  <p class="page-subtitle">All backend agents tested — Route Agent, Pricing Agent, and Quotation Service</p>
+
+  <h3>🧪 Backend Test Results</h3>
+  <table>
+    <thead><tr><th>Test</th><th>Input</th><th>Result</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Route Agent</td><td>Chennai → Rotterdam, 10</td><td>3 routes, Best = R001, Score 65.5</td><td>✅ Pass</td></tr>
+      <tr><td>Score Breakdown</td><td>R001</td><td>transit=100, cost=0, transship=80</td><td>✅ Pass</td></tr>
+      <tr><td>Pricing Agent</td><td>R001, $1850</td><td>Operating=$2,075, Adjusted=$2,075</td><td>✅ Pass</td></tr>
+      <tr><td>Quotation Service</td><td>Chennai → Rotterdam, 10</td><td>Freight/ct=$2,075, Total=$20,750</td><td>✅ Pass</td></tr>
+      <tr><td>No Route Found</td><td>Chennai → New York</td><td>"not_found" message returned</td><td>✅ Pass</td></tr>
+      <tr><td>Alternatives</td><td>Chennai → Rotterdam</td><td>2 alternative routes with pricing</td><td>✅ Pass</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🚀 How to Run the Project</h3>
+
+  <h4>Option 1: One-Click Launch</h4>
+  <div class="code"><span class="cmt"># Double-click start.bat or run:</span>
+.\start.bat</div>
+
+  <h4>Option 2: Manual Start</h4>
+  <div class="two-col">
+    <div>
+      <div class="code"><span class="cmt"># Terminal 1 — Backend</span>
+cd backend
+.\venv\Scripts\activate.bat
+python -m uvicorn main:app --reload
+
+<span class="cmt"># Running at http://127.0.0.1:8000</span></div>
+    </div>
+    <div>
+      <div class="code"><span class="cmt"># Terminal 2 — Frontend</span>
+cd frontend
+npm run dev
+
+<span class="cmt"># Running at http://localhost:5173</span></div>
+    </div>
+  </div>
+
+  <h3>🔗 Important URLs</h3>
+  <table>
+    <thead><tr><th>URL</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>http://localhost:5173</td><td>React Frontend Dashboard</td></tr>
+      <tr><td>http://127.0.0.1:8000</td><td>FastAPI Backend</td></tr>
+      <tr><td>http://127.0.0.1:8000/docs</td><td>Swagger API Documentation</td></tr>
+    </tbody>
+  </table>
+
+  <h3>📊 Milestone 1 Completion Status</h3>
+  <ul class="checklist">
+    <li><span class="check">✅</span> React Frontend + Login System</li>
+    <li><span class="check">✅</span> Python Backend + FastAPI + CORS</li>
+    <li><span class="check">✅</span> Virtual Environment + Dependencies</li>
+    <li><span class="check">✅</span> Route Dataset (routes.csv — 10 routes)</li>
+    <li><span class="check">✅</span> Route Agent + Weighted Scoring Engine</li>
+    <li><span class="check">✅</span> Score Breakdown (Transit, Cost, Transshipment)</li>
+    <li><span class="check">✅</span> Alternative Route Ranking</li>
+    <li><span class="check">✅</span> Pricing Dataset (pricing.csv — 10 records)</li>
+    <li><span class="check">✅</span> Pricing Agent (surcharges + demand)</li>
+    <li><span class="check">✅</span> Quotation Service + API Endpoint</li>
+    <li><span class="check">✅</span> Quotation Dashboard (Frontend)</li>
+    <li><span class="check">✅</span> Swagger API Documentation</li>
+    <li><span class="check">✅</span> Route Comparison Chart</li>
+    <li><span class="check">✅</span> 10-Slide HTML Presentation</li>
+  </ul>
+
+  <div class="info-gold">
+    <strong>Next: Milestone 2</strong> — Pricing Intelligence & Margin Optimization. We'll add a Margin Agent to calculate and optimize brokerage profit, dynamic pricing based on market demand, and multi-agent collaboration.
+  </div>
+</div>
+
+</body>
+</html>

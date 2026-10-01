@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milestone 1 — Maritime Brokerage AI Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0e1a;--bg2:#111827;--card:rgba(17,24,39,0.7);
+  --teal:#06b6d4;--blue:#3b82f6;--purple:#8b5cf6;
+  --gold:#f59e0b;--emerald:#10b981;--rose:#f43f5e;
+  --text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;
+  --border:rgba(148,163,184,0.1);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+/* Slide System */
+.slide{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 60px;position:relative;overflow:hidden}
+.slide::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#0a0e1a 0%,#0f172a 50%,#1e1b4b 100%);z-index:0}
+.slide-content{position:relative;z-index:1;max-width:1200px;margin:0 auto;width:100%}
+.slide-number{position:absolute;top:30px;right:40px;font-family:'Outfit',sans-serif;font-size:0.75rem;color:var(--text3);letter-spacing:2px;z-index:2}
+
+/* Title Slide */
+.title-slide .slide-content{text-align:center}
+.title-icon{font-size:4rem;margin-bottom:20px;display:block;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.title-main{font-family:'Outfit',sans-serif;font-size:3.5rem;font-weight:800;letter-spacing:-1.5px;margin-bottom:16px;background:linear-gradient(135deg,#06b6d4,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.title-sub{font-size:1.3rem;color:var(--text2);margin-bottom:40px;font-weight:400}
+.title-badge{display:inline-block;padding:8px 24px;background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);border-radius:100px;font-size:0.8rem;color:var(--teal);font-weight:500;letter-spacing:1px}
+.title-meta{margin-top:48px;display:flex;justify-content:center;gap:40px}
+.title-stat{text-align:center}
+.title-stat-val{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:700;color:var(--text);display:block}
+.title-stat-lbl{font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px}
+
+/* Section Headers */
+.section-num{font-family:'Outfit',sans-serif;font-size:0.8rem;font-weight:600;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:block}
+.section-title{font-family:'Outfit',sans-serif;font-size:2.4rem;font-weight:700;color:var(--text);letter-spacing:-0.5px;margin-bottom:24px;line-height:1.2}
+.section-desc{font-size:1rem;color:var(--text2);line-height:1.7;max-width:700px;margin-bottom:40px}
+
+/* Cards */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:all 0.3s ease;position:relative;overflow:hidden}
+.card:hover{border-color:rgba(6,182,212,0.25);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,0.3)}
+.card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;opacity:0;transition:opacity 0.3s}
+.card:hover::before{opacity:1}
+.card-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:16px;flex-shrink:0}
+.card-title{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:600;color:var(--text);margin-bottom:8px}
+.card-text{font-size:0.85rem;color:var(--text2);line-height:1.6}
+
+.icon-teal{background:rgba(6,182,212,0.12);color:var(--teal)}
+.icon-blue{background:rgba(59,130,246,0.12);color:var(--blue)}
+.icon-purple{background:rgba(139,92,246,0.12);color:var(--purple)}
+.icon-gold{background:rgba(245,158,11,0.12);color:var(--gold)}
+.icon-emerald{background:rgba(16,185,129,0.12);color:var(--emerald)}
+.icon-rose{background:rgba(244,63,94,0.12);color:var(--rose)}
+
+.bar-teal::before{background:var(--teal)}
+.bar-blue::before{background:var(--blue)}
+.bar-purple::before{background:var(--purple)}
+.bar-gold::before{background:var(--gold)}
+.bar-emerald::before{background:var(--emerald)}
+.bar-rose::before{background:var(--rose)}
+
+/* Code Blocks */
+.code-block{background:rgba(15,23,42,0.8);border:1px solid var(--border);border-radius:12px;padding:24px;font-family:'Fira Code','Cascadia Code','Consolas',monospace;font-size:0.82rem;line-height:1.8;color:var(--text2);overflow-x:auto;white-space:pre}
+.code-label{display:inline-block;padding:4px 12px;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.2);border-radius:100px;font-size:0.7rem;color:var(--purple);font-weight:600;margin-bottom:12px;letter-spacing:0.5px}
+.code-keyword{color:#c084fc}
+.code-string{color:#5eead4}
+.code-comment{color:#64748b;font-style:italic}
+.code-number{color:#fbbf24}
+
+/* Architecture Diagram */
+.arch-flow{display:flex;flex-direction:column;align-items:center;gap:8px;padding:28px;background:rgba(15,23,42,0.5);border:1px solid var(--border);border-radius:16px}
+.arch-box{padding:12px 32px;border-radius:10px;font-family:'Outfit',sans-serif;font-weight:600;font-size:0.85rem;text-align:center;min-width:220px;border:1px solid}
+.arch-arrow{color:var(--text3);font-size:1.2rem}
+.arch-teal{background:rgba(6,182,212,0.1);border-color:rgba(6,182,212,0.25);color:var(--teal)}
+.arch-blue{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.25);color:var(--blue)}
+.arch-purple{background:rgba(139,92,246,0.1);border-color:rgba(139,92,246,0.25);color:var(--purple)}
+.arch-gold{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.25);color:var(--gold)}
+.arch-emerald{background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.25);color:var(--emerald)}
+
+/* Split Layout */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.split-narrow{display:grid;grid-template-columns:2fr 3fr;gap:40px;align-items:start}
+
+/* Table */
+.data-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.data-table th{background:rgba(6,182,212,0.08);padding:14px 18px;text-align:left;font-family:'Outfit',sans-serif;font-size:0.78rem;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--border)}
+.data-table td{padding:12px 18px;font-size:0.85rem;color:var(--text2);border-bottom:1px solid rgba(148,163,184,0.05)}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(6,182,212,0.03)}
+
+/* Highlight */
+.hl-teal{color:var(--teal)}
+.hl-gold{color:var(--gold)}
+.hl-blue{color:var(--blue)}
+.hl-emerald{color:var(--emerald)}
+.hl-purple{color:var(--purple)}
+
+/* List */
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.feature-list li{display:flex;align-items:flex-start;gap:12px;font-size:0.9rem;color:var(--text2);line-height:1.5}
+.feature-list li::before{content:'✓';display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:rgba(16,185,129,0.12);color:var(--emerald);font-size:0.75rem;font-weight:700;flex-shrink:0}
+
+/* Progress */
+.progress-list{display:flex;flex-direction:column;gap:8px}
+.progress-item{display:flex;align-items:center;gap:12px;padding:10px 16px;background:rgba(15,23,42,0.4);border:1px solid var(--border);border-radius:10px;font-size:0.85rem;color:var(--text2)}
+.progress-check{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0}
+.progress-done{background:rgba(16,185,129,0.15);color:var(--emerald)}
+.progress-pending{background:rgba(245,158,11,0.12);color:var(--gold)}
+
+/* Divider */
+.slide-divider{width:60px;height:3px;background:linear-gradient(90deg,var(--teal),var(--blue));border-radius:2px;margin-bottom:32px}
+
+/* Navigation */
+.nav-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;padding:16px 40px;background:rgba(10,14,26,0.85);backdrop-filter:blur(16px);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-family:'Outfit',sans-serif;font-size:0.85rem;font-weight:600;color:var(--text3);display:flex;align-items:center;gap:8px}
+.nav-links{display:flex;gap:12px}
+.nav-link{padding:8px 18px;border-radius:8px;font-size:0.8rem;font-weight:500;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer;font-family:'Inter',sans-serif}
+.nav-prev{background:rgba(148,163,184,0.08);color:var(--text3);border:1px solid var(--border)}
+.nav-prev:hover{background:rgba(148,163,184,0.15);color:var(--text2)}
+.nav-next{background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff}
+.nav-next:hover{box-shadow:0 4px 16px rgba(6,182,212,0.3)}
+
+/* Orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:0.2;pointer-events:none}
+.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(6,182,212,0.25),transparent 70%);top:-15%;right:-10%}
+.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(59,130,246,0.2),transparent 70%);bottom:-15%;left:-10%}
+.orb-3{width:350px;height:350px;background:radial-gradient(circle,rgba(139,92,246,0.15),transparent 70%);top:40%;left:25%}
+
+/* Responsive */
+@media(max-width:768px){
+  .slide{padding:60px 24px}
+  .title-main{font-size:2.2rem}
+  .section-title{font-size:1.8rem}
+  .split,.split-narrow{grid-template-columns:1fr}
+  .card-grid{grid-template-columns:1fr}
+  .title-meta{flex-direction:column;gap:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== SLIDE 1: Title ===== -->
+<section class="slide title-slide" id="slide-1">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="slide-content">
+    <span class="title-icon">⚓</span>
+    <h1 class="title-main">Agentic Maritime Brokerage</h1>
+    <p class="title-sub">AI-Powered Route Intelligence & Quotation Platform</p>
+    <span class="title-badge">MILESTONE 1 — MODULE 1: ROUTE INTELLIGENCE</span>
+    <div class="title-meta">
+      <div class="title-stat">
+        <span class="title-stat-val">React</span>
+        <span class="title-stat-lbl">Frontend</span>
+      </div>
+      <div class="title-stat">
+        <span class="title-stat-val">FastAPI</span>
+        <span class="title-stat-lbl">Backend</span>
+      </div>
+      <div class="title-stat">
+        <span class="title-stat-val">Python</span>
+        <span class="title-stat-lbl">AI Agents</span>
+      </div>
+      <div class="title-stat">
+        <span class="title-stat-val">Pandas</span>
+        <span class="title-stat-lbl">Data Processing</span>
+      </div>
+    </div>
+  </div>
+  <span class="slide-number">01 / 10</span>
+</section>
+
+<!-- ===== SLIDE 2: What is Maritime Freight Brokerage? ===== -->
+<section class="slide" id="slide-2">
+  <div class="orb orb-3"></div>
+  <div class="slide-content">
+    <span class="section-num">Understanding the Problem</span>
+    <h2 class="section-title">What is Maritime Freight Brokerage?</h2>
+    <div class="slide-divider"></div>
+    <p class="section-desc">
+      A customer tells a freight broker: <em>"I want to ship 10 containers of electronics from Chennai to Rotterdam."</em>
+      The broker needs to determine multiple factors:
+    </p>
+    <div class="card-grid">
+      <div class="card bar-teal">
+        <div class="card-icon icon-teal">🚢</div>
+        <div class="card-title">Route Selection</div>
+        <div class="card-text">Which shipping route should be used? Are there alternatives? Which route is better?</div>
+      </div>
+      <div class="card bar-blue">
+        <div class="card-icon icon-blue">⏱️</div>
+        <div class="card-title">Transit & Distance</div>
+        <div class="card-text">How long will it take? How far is the route? What are the transshipment points?</div>
+      </div>
+      <div class="card bar-gold">
+        <div class="card-icon icon-gold">💰</div>
+        <div class="card-title">Freight Cost</div>
+        <div class="card-text">What will the freight cost? What surcharges apply? What profit margin can the broker make?</div>
+      </div>
+      <div class="card bar-purple">
+        <div class="card-icon icon-purple">⚠️</div>
+        <div class="card-title">Risk Assessment</div>
+        <div class="card-text">What risks exist on this route? How do weather, port congestion, and demand affect pricing?</div>
+      </div>
+    </div>
+    <p style="margin-top:28px;font-size:0.88rem;color:var(--text3)">
+      Our project brings these decisions into <strong class="hl-teal">one AI-powered platform</strong>.
+    </p>
+  </div>
+  <span class="slide-number">02 / 10</span>
+</section>
+
+<!-- ===== SLIDE 3: What is an Agent? ===== -->
+<section class="slide" id="slide-3">
+  <div class="orb orb-1"></div>
+  <div class="slide-content">
+    <span class="section-num">Core Concept</span>
+    <h2 class="section-title">What is an Agent?</h2>
+    <div class="slide-divider"></div>
+    <div class="split">
+      <div>
+        <p class="section-desc" style="max-width:none">
+          An agent is <strong class="hl-teal">not</strong> simply a chatbot. An agent is a software component that has a <strong class="hl-emerald">goal</strong> and performs <strong class="hl-blue">actions</strong> to achieve that goal.
+        </p>
+        <ul class="feature-list">
+          <li>Receives a shipment request from the user</li>
+          <li>Looks at available routes in the dataset</li>
+          <li>Evaluates each route using scoring criteria</li>
+          <li>Calculates weighted scores across multiple factors</li>
+          <li>Compares alternatives and ranks them</li>
+          <li>Selects the best route and explains why</li>
+        </ul>
+        <p style="margin-top:24px;font-size:0.85rem;color:var(--text3)">
+          That is why we call it a <strong class="hl-teal">Route Agent</strong>.
+        </p>
+      </div>
+      <div class="arch-flow">
+        <div class="arch-box arch-teal">📦 Receive Shipment Request</div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box arch-blue">📊 Look at Available Routes</div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box arch-purple">🧮 Calculate Scores</div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box arch-gold">⚖️ Compare Alternatives</div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box arch-emerald">✅ Select Best Route</div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box arch-teal">💬 Explain Recommendation</div>
+      </div>
+    </div>
+  </div>
+  <span class="slide-number">03 / 10</span>
+</section>
+
+<!-- ===== SLIDE 4: Project Architecture ===== -->
+<section class="slide" id="slide-4">
+  <div class="orb orb-2"></div>
+  <div class="slide-content">
+    <span class="section-num">System Design</span>
+    <h2 class="section-title">Project Architecture</h2>
+    <div class="slide-divider"></div>
+    <div class="split">
+      <div>
+        <p class="section-desc" style="max-width:none">
+          Our system uses a <strong class="hl-teal">React frontend</strong> communicating with a <strong class="hl-blue">FastAPI backend</strong> that orchestrates multiple AI agents.
+        </p>
+        <div class="card-grid" style="grid-template-columns:1fr">
+          <div class="card bar-teal">
+            <div class="card-title">Frontend — React + Vite</div>
+            <div class="card-text">Shipment form, quotation dashboard, route comparison chart, login system</div>
+          </div>
+          <div class="card bar-blue">
+            <div class="card-title">Backend — Python + FastAPI</div>
+            <div class="card-text">REST APIs, Pydantic models, CORS, Uvicorn server</div>
+          </div>
+          <div class="card bar-purple">
+            <div class="card-title">Agents — Route + Pricing</div>
+            <div class="card-text">Route intelligence, scoring engine, pricing calculations, quotation generation</div>
+          </div>
+          <div class="card bar-gold">
+            <div class="card-title">Data — CSV Datasets</div>
+            <div class="card-text">routes.csv (route data), pricing.csv (surcharges & margins)</div>
+          </div>
+        </div>
+      </div>
+      <div class="arch-flow">
+        <div class="arch-box arch-teal">🖥️ React Frontend</div>
+        <div class="arch-arrow">↓ HTTP POST</div>
+        <div class="arch-box arch-blue">⚡ FastAPI Backend</div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box arch-purple">🤖 Route Agent</div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box arch-gold">📊 routes.csv</div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box arch-purple">🧮 Scoring Engine</div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box arch-emerald">💰 Pricing Agent</div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box arch-gold">📋 pricing.csv</div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box arch-teal">📄 Quotation Service</div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box arch-emerald">✅ JSON Response</div>
+      </div>
+    </div>
+  </div>
+  <span class="slide-number">04 / 10</span>
+</section>
+
+<!-- ===== SLIDE 5: Project Structure ===== -->
+<section class="slide" id="slide-5">
+  <div class="orb orb-3"></div>
+  <div class="slide-content">
+    <span class="section-num">File Organization</span>
+    <h2 class="section-title">Project Structure</h2>
+    <div class="slide-divider"></div>
+    <div class="split">
+      <div>
+        <span class="code-label">📁 Directory Layout</span>
+        <div class="code-block"><span class="code-comment">Agentic-Maritime-Brokerage/</span>
+│
+├── <span class="hl-teal">frontend/</span>                  ← React + Vite
+│   └── src/
+│       ├── App.jsx             ← Main dashboard
+│       ├── App.css             ← Premium styling
+│       ├── Login.jsx           ← Auth system
+│       ├── ChartCanvas.jsx     ← Route chart
+│       ├── data/ports.js       ← Port data
+│       └── services/routeApi.js← API bridge
+│
+├── <span class="hl-blue">backend/</span>                   ← Python + FastAPI
+│   ├── main.py                 ← API endpoints
+│   ├── app/
+│   │   ├── models.py           ← Pydantic models
+│   │   ├── agents/
+│   │   │   ├── route_agent.py  ← Route Agent
+│   │   │   └── pricing_agent.py← Pricing Agent
+│   │   ├── services/
+│   │   │   └── quotation_service.py
+│   │   └── data/
+│   │       ├── routes.csv      ← Route dataset
+│   │       └── pricing.csv     ← Pricing dataset
+│   └── venv/                   ← Virtual environment
+│
+└── start.bat                   ← Launcher script</div>
+      </div>
+      <div>
+        <span class="code-label">🔌 API Endpoints</span>
+        <div class="code-block"><span class="code-keyword">GET</span>  <span class="code-string">/</span>
+→ API health check
+
+<span class="code-keyword">POST</span> <span class="code-string">/api/routes/analyze</span>
+→ Analyze routes, score & rank them
+
+<span class="code-keyword">POST</span> <span class="code-string">/api/quotations/generate</span>
+→ Generate freight quotation with
+  pricing breakdown</div>
+        <br>
+        <span class="code-label">📤 Request Body</span>
+        <div class="code-block">{
+  <span class="code-string">"origin"</span>:     <span class="code-string">"Chennai"</span>,
+  <span class="code-string">"destination"</span>: <span class="code-string">"Rotterdam"</span>,
+  <span class="code-string">"cargo_type"</span>:  <span class="code-string">"Electronics"</span>,
+  <span class="code-string">"containers"</span>:  <span class="code-number">10</span>
+}</div>
+      </div>
+    </div>
+  </div>
+  <span class="slide-number">05 / 10</span>
+</section>
+
+<!-- ===== SLIDE 6: Route Dataset ===== -->
+<section class="slide" id="slide-6">
+  <div class="orb orb-1"></div>
+  <div class="slide-content">
+    <span class="section-num">Data Layer</span>
+    <h2 class="section-title">Maritime Route Dataset</h2>
+    <div class="slide-divider"></div>
+    <p class="section-desc">Each row in <code>routes.csv</code> represents a possible shipping route with transit time, distance, transshipments, and base freight cost.</p>
+    <table class="data-table">
+      <thead>
+        <tr><th>Route</th><th>Origin</th><th>Destination</th><th>Distance (NM)</th><th>Transit (Days)</th><th>Transshipments</th><th>Freight (USD)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="hl-teal">R001</td><td>Chennai</td><td>Rotterdam</td><td>8,650</td><td>24</td><td>1</td><td>$1,850</td></tr>
+        <tr><td>R002</td><td>Chennai</td><td>Rotterdam</td><td>9,100</td><td>27</td><td>2</td><td>$1,720</td></tr>
+        <tr><td>R003</td><td>Chennai</td><td>Rotterdam</td><td>8,950</td><td>26</td><td>1</td><td>$1,780</td></tr>
+        <tr><td class="hl-teal">R005</td><td>Mumbai</td><td>Hamburg</td><td>7,940</td><td>22</td><td>1</td><td>$1,800</td></tr>
+        <tr><td class="hl-teal">R007</td><td>Mumbai</td><td>Rotterdam</td><td>7,600</td><td>21</td><td>1</td><td>$1,750</td></tr>
+        <tr><td class="hl-teal">R009</td><td>Singapore</td><td>Rotterdam</td><td>8,400</td><td>23</td><td>1</td><td>$1,600</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:20px;font-size:0.82rem;color:var(--text3)">
+      <strong class="hl-emerald">Principle:</strong> Keep data separate from business logic. The CSV is the data source; the agent is the decision maker.
+    </p>
+  </div>
+  <span class="slide-number">06 / 10</span>
+</section>
+
+<!-- ===== SLIDE 7: Route Scoring Engine ===== -->
+<section class="slide" id="slide-7">
+  <div class="orb orb-2"></div>
+  <div class="slide-content">
+    <span class="section-num">Decision Logic</span>
+    <h2 class="section-title">Route Scoring Engine</h2>
+    <div class="slide-divider"></div>
+    <div class="split">
+      <div>
+        <p class="section-desc" style="max-width:none">
+          The Route Agent doesn't look at just one factor. It uses <strong class="hl-teal">weighted multi-factor scoring</strong> to find the best route.
+        </p>
+        <div class="card-grid" style="grid-template-columns:1fr">
+          <div class="card bar-teal">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div class="card-title" style="margin:0">🕐 Transit Time Score</div>
+              <span class="hl-teal" style="font-family:'Outfit',sans-serif;font-weight:700;font-size:1.3rem">40%</span>
+            </div>
+            <div class="card-text" style="margin-top:8px">Faster routes get higher scores. Normalized using min-max scaling.</div>
+          </div>
+          <div class="card bar-gold">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div class="card-title" style="margin:0">💰 Cost Score</div>
+              <span class="hl-gold" style="font-family:'Outfit',sans-serif;font-weight:700;font-size:1.3rem">30%</span>
+            </div>
+            <div class="card-text" style="margin-top:8px">Cheaper routes get higher scores. Normalized using min-max scaling.</div>
+          </div>
+          <div class="card bar-purple">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div class="card-title" style="margin:0">🔄 Transshipment Score</div>
+              <span class="hl-purple" style="font-family:'Outfit',sans-serif;font-weight:700;font-size:1.3rem">30%</span>
+            </div>
+            <div class="card-text" style="margin-top:8px">Fewer transshipments = higher score. Each adds a 15-point penalty.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="code-label">🧮 Scoring Formula</span>
+        <div class="code-block"><span class="code-comment"># Overall route score</span>
+
+Route Score =
+  <span class="code-number">100</span> - (
+    transit_norm × <span class="code-number">40</span>
+    + cost_norm × <span class="code-number">30</span>
+    + transshipment_penalty × <span class="code-number">30</span>
+  )
+
+<span class="code-comment"># Example: Chennai → Rotterdam</span>
+<span class="code-comment"># R001: 24d, $1850, 1 tranship → Score 65.5</span>
+<span class="code-comment"># R002: 27d, $1720, 2 tranship → Score 51.0</span>
+<span class="code-comment"># R003: 26d, $1780, 1 tranship → Score 55.4</span>
+
+<span class="code-keyword">Winner:</span> <span class="code-string">R001</span> ✅</div>
+        <br>
+        <div class="arch-flow" style="padding:20px">
+          <div class="arch-box arch-teal">Candidate Routes</div>
+          <div class="arch-arrow">↓</div>
+          <div style="display:flex;gap:12px">
+            <div class="arch-box arch-blue" style="min-width:120px;padding:10px 16px;font-size:0.75rem">Transit<br>40%</div>
+            <div class="arch-box arch-gold" style="min-width:120px;padding:10px 16px;font-size:0.75rem">Cost<br>30%</div>
+            <div class="arch-box arch-purple" style="min-width:120px;padding:10px 16px;font-size:0.75rem">Tranship<br>30%</div>
+          </div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box arch-emerald">Weighted Score → Best Route</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="slide-number">07 / 10</span>
+</section>
+
+<!-- ===== SLIDE 8: Pricing Agent & Quotation ===== -->
+<section class="slide" id="slide-8">
+  <div class="orb orb-3"></div>
+  <div class="slide-content">
+    <span class="section-num">Pricing Intelligence</span>
+    <h2 class="section-title">Pricing Agent & Quotation Service</h2>
+    <div class="slide-divider"></div>
+    <div class="split">
+      <div>
+        <p class="section-desc" style="max-width:none">
+          The <strong class="hl-gold">Pricing Agent</strong> adds surcharges and demand adjustments. The <strong class="hl-teal">Quotation Service</strong> combines both agents.
+        </p>
+        <span class="code-label">💰 Pricing Calculation (R001)</span>
+        <div class="code-block">Base Freight           <span class="code-number">$1,850</span>
++ Fuel Surcharge        <span class="code-number">$100</span>
++ Port Charge           <span class="code-number">$75</span>
++ Risk Surcharge        <span class="code-number">$50</span>
+                       ──────
+Operating Cost         <span class="code-number">$2,075</span>
+
+× Demand Factor        <span class="code-number">1.00</span>
+                       ──────
+Adjusted Cost          <span class="hl-gold">$2,075</span> / container
+
+× 10 containers
+                       ──────
+<span class="code-keyword">Total Freight</span>         <span class="hl-gold">$20,750</span></div>
+      </div>
+      <div>
+        <div class="arch-flow">
+          <div class="arch-box arch-teal">Customer Request</div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box arch-blue">Quotation Service</div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box arch-purple">Route Agent → Best Route</div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box arch-gold">Pricing Agent → Cost Breakdown</div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box arch-emerald">✅ Complete Quotation</div>
+        </div>
+        <br>
+        <div class="card bar-emerald">
+          <div class="card-title">Separation of Responsibilities</div>
+          <div class="card-text">
+            <strong class="hl-teal">Route Agent</strong> → "What is the best route?"<br>
+            <strong class="hl-gold">Pricing Agent</strong> → "What does this shipment cost?"<br>
+            <strong class="hl-emerald">Quotation Service</strong> → "Assemble the complete quotation."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="slide-number">08 / 10</span>
+</section>
+
+<!-- ===== SLIDE 9: Technologies ===== -->
+<section class="slide" id="slide-9">
+  <div class="orb orb-1"></div>
+  <div class="slide-content">
+    <span class="section-num">Tech Stack</span>
+    <h2 class="section-title">Technologies Used</h2>
+    <div class="slide-divider"></div>
+    <div class="card-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="card bar-teal">
+        <div class="card-icon icon-teal">⚛️</div>
+        <div class="card-title">React</div>
+        <div class="card-text">Web interface — shipment form, dashboard, login system, responsive design</div>
+      </div>
+      <div class="card bar-blue">
+        <div class="card-icon icon-blue">⚡</div>
+        <div class="card-title">FastAPI</div>
+        <div class="card-text">Backend API — REST endpoints, Pydantic validation, auto-generated Swagger docs</div>
+      </div>
+      <div class="card bar-purple">
+        <div class="card-icon icon-purple">🐍</div>
+        <div class="card-title">Python</div>
+        <div class="card-text">Backend logic — agent classes, scoring algorithms, data processing</div>
+      </div>
+      <div class="card bar-gold">
+        <div class="card-icon icon-gold">🐼</div>
+        <div class="card-title">Pandas</div>
+        <div class="card-text">Dataset processing — CSV loading, filtering, sorting, transformations</div>
+      </div>
+      <div class="card bar-emerald">
+        <div class="card-icon icon-emerald">📊</div>
+        <div class="card-title">CSV Datasets</div>
+        <div class="card-text">Data layer — routes.csv for route data, pricing.csv for surcharges & margins</div>
+      </div>
+      <div class="card bar-rose">
+        <div class="card-icon icon-rose">🔗</div>
+        <div class="card-title">REST API</div>
+        <div class="card-text">Communication — frontend ↔ backend via HTTP JSON requests</div>
+      </div>
+    </div>
+    <p style="margin-top:28px;font-size:0.85rem;color:var(--text3)">
+      <strong class="hl-teal">Coming in later milestones:</strong> AI/LLM integration for natural language reasoning, weather data, customs analysis, and collaborative multi-agent decisions.
+    </p>
+  </div>
+  <span class="slide-number">09 / 10</span>
+</section>
+
+<!-- ===== SLIDE 10: Status & Next Steps ===== -->
+<section class="slide" id="slide-10">
+  <div class="orb orb-2"></div>
+  <div class="slide-content">
+    <span class="section-num">Summary</span>
+    <h2 class="section-title">Milestone 1 Status & What's Next</h2>
+    <div class="slide-divider"></div>
+    <div class="split">
+      <div>
+        <h3 style="font-family:'Outfit',sans-serif;font-size:1.1rem;color:var(--emerald);margin-bottom:16px">✅ Milestone 1 — Complete</h3>
+        <div class="progress-list">
+          <div class="progress-item"><span class="progress-check progress-done">✓</span>React Frontend + Login</div>
+          <div class="progress-item"><span class="progress-check progress-done">✓</span>Python Backend + FastAPI</div>
+          <div class="progress-item"><span class="progress-check progress-done">✓</span>Virtual Environment + Dependencies</div>
+          <div class="progress-item"><span class="progress-check progress-done">✓</span>Route Dataset (routes.csv)</div>
+          <div class="progress-item"><span class="progress-check progress-done">✓</span>Route Agent + Scoring Engine</div>
+          <div class="progress-item"><span class="progress-check progress-done">✓</span>Score Breakdown (Transit, Cost, Transship)</div>
+          <div class="progress-item"><span class="progress-check progress-done">✓</span>Alternative Route Ranking</div>
+          <div class="progress-item"><span class="progress-check progress-done">✓</span>Pricing Dataset (pricing.csv)</div>
+          <div class="progress-item"><span class="progress-check progress-done">✓</span>Pricing Agent</div>
+          <div class="progress-item"><span class="progress-check progress-done">✓</span>Quotation Service + API</div>
+          <div class="progress-item"><span class="progress-check progress-done">✓</span>Quotation Dashboard (Frontend)</div>
+          <div class="progress-item"><span class="progress-check progress-done">✓</span>CORS + Swagger UI</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:'Outfit',sans-serif;font-size:1.1rem;color:var(--gold);margin-bottom:16px">🔜 Coming Next — Milestone 2</h3>
+        <div class="progress-list">
+          <div class="progress-item"><span class="progress-check progress-pending">→</span>Margin Agent (profit optimization)</div>
+          <div class="progress-item"><span class="progress-check progress-pending">→</span>Dynamic pricing based on demand</div>
+          <div class="progress-item"><span class="progress-check progress-pending">→</span>Customer price vs brokerage profit</div>
+          <div class="progress-item"><span class="progress-check progress-pending">→</span>Multi-agent collaboration</div>
+        </div>
+        <br>
+        <h3 style="font-family:'Outfit',sans-serif;font-size:1.1rem;color:var(--purple);margin-bottom:16px">🚀 Future Milestones</h3>
+        <div class="progress-list">
+          <div class="progress-item"><span class="progress-check progress-pending">→</span>Weather Agent</div>
+          <div class="progress-item"><span class="progress-check progress-pending">→</span>Customs Agent</div>
+          <div class="progress-item"><span class="progress-check progress-pending">→</span>LLM Integration for reasoning</div>
+          <div class="progress-item"><span class="progress-check progress-pending">→</span>Collaborative agentic decisions</div>
+        </div>
+        <br>
+        <div class="arch-flow" style="padding:16px">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+            <div class="arch-box arch-teal" style="min-width:120px;padding:8px 14px;font-size:0.75rem">Route Agent</div>
+            <div class="arch-box arch-gold" style="min-width:120px;padding:8px 14px;font-size:0.75rem">Pricing Agent</div>
+            <div class="arch-box arch-purple" style="min-width:120px;padding:8px 14px;font-size:0.75rem">Weather Agent</div>
+          </div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box arch-blue" style="padding:8px 14px;font-size:0.75rem">Margin Agent</div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box arch-emerald" style="padding:8px 14px;font-size:0.75rem">Customs Agent</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="slide-number">10 / 10</span>
+</section>
+
+<!-- Navigation Bar -->
+<nav class="nav-bar">
+  <div class="nav-brand">⚓ Maritime Brokerage AI — Milestone 1 Presentation</div>
+  <div class="nav-links">
+    <button class="nav-link nav-prev" onclick="prevSlide()">← Previous</button>
+    <button class="nav-link nav-next" onclick="nextSlide()">Next →</button>
+  </div>
+</nav>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+
+function goToSlide(n) {
+  if (n < 0 || n >= slides.length) return;
+  current = n;
+  slides[n].scrollIntoView({ behavior: 'smooth' });
+}
+
+function nextSlide() { goToSlide(current + 1); }
+function prevSlide() { goToSlide(current - 1); }
+
+// Track current slide on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      current = Array.from(slides).indexOf(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+slides.forEach(slide => observer.observe(slide));
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+    e.preventDefault();
+    nextSlide();
+  } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    prevSlide();
+  }
+});
+</script>
+</body>
+</html>

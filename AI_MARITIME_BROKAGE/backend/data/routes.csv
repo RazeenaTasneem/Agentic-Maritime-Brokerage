@@ -1,0 +1,27 @@
+route_id,origin,destination,transit_days,distance_nm,transshipments,cost_per_container,route_name,via
+R001,Chennai,Rotterdam,24,8650,1,1450,Suez Direct,Suez Canal
+R002,Chennai,Rotterdam,27,9100,2,1320,Colombo Transit,Colombo - Suez Canal
+R003,Chennai,Rotterdam,30,11800,1,1250,Cape Route,Cape of Good Hope
+R004,Chennai,Rotterdam,22,8600,0,1680,Express Suez,Suez Canal Direct
+R005,Shanghai,Los Angeles,14,6500,0,1200,Transpacific Direct,Pacific Ocean
+R006,Shanghai,Los Angeles,18,7200,1,1050,Busan Transit,Busan - Pacific
+R007,Shanghai,Los Angeles,22,8900,2,950,Southeast Route,Singapore - Pacific
+R008,Mumbai,Hamburg,21,8200,1,1380,Suez Express,Suez Canal
+R009,Mumbai,Hamburg,25,8800,2,1200,Jebel Ali Transit,Jebel Ali - Suez
+R010,Mumbai,Hamburg,28,11500,1,1100,Cape Route,Cape of Good Hope
+R011,Singapore,Felixstowe,18,8400,0,1500,Direct Suez,Suez Canal
+R012,Singapore,Felixstowe,22,8900,1,1300,Colombo Hub,Colombo - Suez
+R013,Singapore,Felixstowe,26,12000,1,1150,Cape Route,Cape of Good Hope
+R014,Dubai,New York,24,9200,1,1550,Suez Atlantic,Suez - Atlantic
+R015,Dubai,New York,28,9800,2,1350,Mediterranean Hub,Piraeus - Atlantic
+R016,Dubai,New York,32,12500,1,1200,Cape Atlantic,Cape - Atlantic
+R017,Ho Chi Minh,Antwerp,22,8800,1,1400,Singapore Hub,Singapore - Suez
+R018,Ho Chi Minh,Antwerp,26,9300,2,1250,Colombo Route,Colombo - Suez
+R019,Busan,Long Beach,12,5700,0,1150,Transpacific Express,Pacific Direct
+R020,Busan,Long Beach,16,6400,1,980,Shanghai Transit,Shanghai - Pacific
+R021,Chennai,Hamburg,23,8500,1,1420,Suez Route,Suez Canal
+R022,Chennai,Hamburg,26,9000,2,1280,Colombo Transit,Colombo - Suez
+R023,Chennai,New York,28,10200,2,1600,Suez Atlantic,Suez - Atlantic
+R024,Chennai,New York,32,10800,3,1450,Multi Hub,Colombo - Piraeus - Atlantic
+R025,Chennai,Los Angeles,22,9800,1,1500,Singapore Pacific,Singapore - Pacific
+R026,Chennai,Los Angeles,26,10400,2,1350,Multi Transit,Colombo - Singapore - Pacific

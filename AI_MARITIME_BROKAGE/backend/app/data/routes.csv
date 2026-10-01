@@ -1,0 +1,11 @@
+route_id,origin,destination,distance_nm,transit_days,transshipments,route_type,base_freight_usd
+R001,Chennai,Rotterdam,8650,24,1,Standard,1850
+R002,Chennai,Rotterdam,9100,27,2,Alternative,1720
+R003,Chennai,Rotterdam,8950,26,1,Alternative,1780
+R004,Chennai,Hamburg,8800,25,1,Standard,1900
+R005,Mumbai,Hamburg,7940,22,1,Standard,1800
+R006,Mumbai,Hamburg,8350,25,2,Alternative,1680
+R007,Mumbai,Rotterdam,7600,21,1,Standard,1750
+R008,Mumbai,Rotterdam,8050,24,2,Alternative,1640
+R009,Singapore,Rotterdam,8400,23,1,Standard,1600
+R010,Singapore,Hamburg,8600,24,1,Standard,1650

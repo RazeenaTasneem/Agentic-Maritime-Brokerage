@@ -1,0 +1,294 @@
+/* =============================================
+   MaritimePathways.css — Pathways & Comparison
+   ============================================= */
+
+.pathways-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.pathways-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pathways-title {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.pathways-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pathways-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.pathways-title h3 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pathways-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.pathways-count-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-color);
+}
+
+.pathways-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.pathway-card {
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.45));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.pathway-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.pathway-best {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.08), rgba(15, 23, 42, 0.85));
+}
+
+.pathway-selected {
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.3), 0 0 20px rgba(6, 182, 212, 0.15);
+}
+
+.pathway-best-ribbon {
+  position: absolute;
+  top: -1px;
+  right: 1.25rem;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-bottom-left-radius: var(--radius-sm);
+  border-bottom-right-radius: var(--radius-sm);
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+}
+
+.pathway-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.pathway-name-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.pathway-name {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pathway-id {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.pathway-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.score-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.score-num {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.score-best {
+  color: #10b981;
+}
+
+.pathway-via-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: rgba(15, 23, 42, 0.5);
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+.pathway-via-tag svg {
+  width: 14px;
+  height: 14px;
+  color: var(--color-teal);
+  flex-shrink: 0;
+}
+
+.pathway-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  background: rgba(15, 23, 42, 0.3);
+  padding: 0.6rem;
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+
+.p-metric {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-val {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.p-lbl {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.pathway-mini-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+}
+
+.mini-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mini-bar-lbl {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  width: 45px;
+}
+
+.mini-track {
+  flex: 1;
+  height: 4px;
+  background: rgba(148, 163, 184, 0.1);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.mini-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+}
+
+.pathways-chart-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+}
+
+.chart-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.chart-heading svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-teal);
+}
+
+.pathways-recommendation {
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.15), rgba(59, 130, 246, 0.1));
+  border: 1px solid rgba(13, 148, 136, 0.3);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.rec-badge-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.rec-content h4 {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-teal);
+  margin-bottom: 0.35rem;
+}
+
+.rec-content p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+  .pathways-grid {
+    grid-template-columns: 1fr;
+  }
+}
